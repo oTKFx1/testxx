@@ -6,6 +6,6 @@ urlpatterns = [
     path('signup/', views.signup),
     path('login/', views.login),
     path('logout/', views.logout),
-    path('fetch_specialist/', views.fetch_specialist),
-
+    path('fetch_specialists/', views.fetch_specialist),
+    path('fetch_user/<str:token>', views.fetch_user),
 ]
