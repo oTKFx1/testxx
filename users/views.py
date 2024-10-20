@@ -129,6 +129,20 @@ def logout(request):
 
     return Response({'message': 'Logout successful!'}, status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+def fetch_user(request, token):
+    try:
+        user = NormalUserInfo.objects.get(token=token)
+        serializer = serializers.FetchCurrentNormalUserSerializers(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except NormalUserInfo.DoesNotExist:
+        try:
+            specialist = SpecialistProfile.objects.get(token=token)
+            serializer = serializers.SpecialistProfileFetchSerializer(specialist)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except SpecialistProfile.DoesNotExist:
+            return Response({'message': 'Invalid Token!'}, status=status.HTTP_401_UNAUTHORIZED) 
+    
 
 @api_view(['GET'])
 def fetch_specialist(request):
