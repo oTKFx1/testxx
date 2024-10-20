@@ -21,3 +21,18 @@ class SpecialistProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = SpecialistProfile
         fields = ['user', 'picture', 'description', 'phone_number', 'experience_years', 'certificate', 'token']
+
+
+
+class UserSpecialistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'username']
+
+
+class SpecialistProfileFetchSerializer(serializers.ModelSerializer):
+    user = UserSpecialistSerializer(read_only=True)  # Use lowercase and read_only if not writable
+
+    class Meta:
+        model = SpecialistProfile
+        fields = ['user', 'picture', 'description', 'phone_number', 'experience_years', 'certificate', 'token']
