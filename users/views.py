@@ -128,3 +128,13 @@ def logout(request):
             return Response({'message': 'Invalid token!'}, status=status.HTTP_401_UNAUTHORIZED)
 
     return Response({'message': 'Logout successful!'}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def fetch_specialist(request):
+    try:
+        specialists = SpecialistProfile.objects.all()  # Fetch all specialists
+        serializer = serializers.SpecialistProfileFetchSerializer(specialists, many=True)  # Serialize the queryset
+        return Response(serializer.data, status=status.HTTP_200_OK)  # Return serialized data
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
