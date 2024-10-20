@@ -23,11 +23,16 @@ class SpecialistProfileSerializer(serializers.ModelSerializer):
         fields = ['user', 'picture', 'description', 'phone_number', 'experience_years', 'certificate', 'token']
 
 
-
 class UserSpecialistSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'username']
+
+class FetchCurrentNormalUserSerializers(serializers.ModelSerializer):
+    user = UserSpecialistSerializer(read_only=True)
+    class Meta:
+        model = NormalUserInfo
+        fields = ['user', 'phone_number']
 
 
 class SpecialistProfileFetchSerializer(serializers.ModelSerializer):
@@ -35,4 +40,4 @@ class SpecialistProfileFetchSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SpecialistProfile
-        fields = ['user', 'picture', 'description', 'phone_number', 'experience_years', 'certificate', 'token']
+        fields = ['user', 'picture', 'description', 'phone_number', 'experience_years', 'certificate']
