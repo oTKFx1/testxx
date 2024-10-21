@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.welcome),
     path('create_consultant/', views.initiate_consultation),
-    path('fetch_consultant/', views.fetch_consultants),
+    path('fetch_consultant/<str:token>', views.fetch_consultants),
     path('send_message/', views.send_message),
     path('fetch_messages/', views.fetch_messages),
     path('complete_consultant/', views.complete_consultant),
